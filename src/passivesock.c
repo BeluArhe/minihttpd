@@ -18,7 +18,7 @@ int errexit(const char *format, ...);
 int passivesock(const char *service, const char *transport, int qlen)
 {
     struct addrinfo hints, *res, *p;
-    int s, status, type;
+    int s= -1, status, type;
 
     // 1. Determinar el tipo de socket según el transporte solicitado [cite: 17]
     if (strcmp(transport, "udp") == 0)
