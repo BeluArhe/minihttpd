@@ -1,10 +1,10 @@
 #include <string.h>
-#include <strings.h> // <- Corrección 1: Vital para strcasecmp bajo estándares estrictos
+#include <strings.h> 
 #include "mime.h"
 
 // Tabla estática con los tipos requeridos exactamente por el enunciado y extras seguros
 static const mime_mapping_t mime_mappings[] = {
-    { ".html", "text/html" },    // <- Corrección 2: Sin charset para evitar fallos en tests estrictos
+    { ".html", "text/html" },    
     { ".htm",  "text/html" },
     { ".css",  "text/css" },
     { ".js",   "application/javascript" },

@@ -2,11 +2,42 @@
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <title>MiniHTTPd - Belén Raura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>minihttpd - María Belén Raura</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h1>Servidor MiniHTTPd</h1>
-    <p>María Belén Raura Ante</p>
+    <main class="container">
+        <header class="profile">
+            <img src="/avatar.jpg" alt="Avatar" class="avatar">
+            <div>
+                <h1>minihttpd</h1>
+                <p class="subtitle">Servidor HTTP/1.1 de alto rendimiento en C</p>
+            </div>
+        </header>
+        
+        <hr class="divider">
+
+        <section class="section">
+            <h2>Contexto del Proyecto</h2>
+            <p>
+                Este servidor fue desarrollado para la materia de <strong>Computación Distribuida (EPN)</strong>, destacando la importancia de una arquitectura concurrente y eficiente. A diferencia de los modelos tradicionales que revisan las conexiones una por una con complejidad lineal <span class="code">O(n)</span>, <strong>minihttpd</strong> utiliza el mecanismo <strong>epoll</strong> de Linux. Su bucle de eventos actúa como el hilo maestro que monitoriza los canales de red y devuelve instantáneamente qué descriptores están listos, logrando una complejidad altamente optimizada de <span class="code">O(1)</span>.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>Arquitectura y Decisiones de Diseño</h2>
+            <ul>
+                <li><strong>Conexiones Persistentes y Búferes:</strong> El servidor gestiona búferes internos para almacenar peticiones que llegan fragmentadas en múltiples paquetes por la red. Mediante la búsqueda del delimitador <span class="code">\r\n\r\n</span>, determinamos el fin de las cabeceras.</li>
+                <li><strong>Soporte Estricto GET:</strong> Atendemos únicamente el método <span class="code">GET</span>, bloqueando cualquier intento de inyección de cuerpo para prevenir ataques de <em>Request Smuggling</em>.</li>
+                <li><strong>Seguridad de Memoria:</strong> Se reemplazaron funciones inseguras (como <span class="code">strcpy</span>) por alternativas seguras con límites de tamaño para evitar desbordamientos de búfer.</li>
+                <li><strong>Mitigación de Path Enumeration:</strong> Para evitar que un atacante descubra la estructura interna del sistema operativo mediante el escaneo de rutas, cualquier intento de acceso indebido responde sistemáticamente con un <strong>404 Not Found</strong> en lugar de un 403 Forbidden, ocultando la existencia real del recurso.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <p><strong>Autora:</strong> María Belén Raura Ante | Escuela Politécnica Nacional (EPN)</p>
+        </footer>
+    </main>
 </body>
 </html>
